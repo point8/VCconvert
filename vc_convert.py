@@ -21,12 +21,10 @@ def fix_vcard(filename):
         fixed_org_string = fix_multiline_field(fixed_note_string, 'ORG')
         fixed_phone_string = re.sub(r'^([A-Z;]*):00', r'\1:+', fixed_org_string, flags=re.M)
         s_fax = re.search(r'^[A-Z;]*:\+49\s*$', fixed_phone_string, flags=re.M)
-        print(filename, s_fax)
         fixed_fax_string = fixed_phone_string
         while s_fax is not None:
             fixed_fax_string = fixed_fax_string[0:s_fax.start()] + fixed_fax_string[s_fax.end()+1:]
             s_fax = re.search(r'^[A-Z;]*:\+49\s*$', fixed_fax_string, flags=re.M)
-            print(filename, s_fax)
         return fixed_fax_string
 
 
